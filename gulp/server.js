@@ -15,7 +15,7 @@ function browserSyncInit(baseDir, browser) {
   browser = browser === undefined ? 'default' : browser;
 
   var routes = null;
-  if(baseDir === conf.paths.src || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.src) !== -1)) {
+  if(baseDir === conf.paths.client || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.client) !== -1)) {
     routes = {
       '/bower_components': 'bower_components'
     };
@@ -47,7 +47,7 @@ browserSync.use(browserSyncSpa({
 }));
 
 gulp.task('serve', ['watch'], function () {
-  browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
+  browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.client]);
 });
 
 gulp.task('serve:dist', ['build'], function () {
@@ -55,7 +55,7 @@ gulp.task('serve:dist', ['build'], function () {
 });
 
 gulp.task('serve:e2e', ['inject'], function () {
-  browserSyncInit([conf.paths.tmp + '/serve', conf.paths.src], []);
+  browserSyncInit([conf.paths.tmp + '/serve', conf.paths.client], []);
 });
 
 gulp.task('serve:e2e-dist', ['build'], function () {

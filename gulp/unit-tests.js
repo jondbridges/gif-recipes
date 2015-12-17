@@ -7,11 +7,11 @@ var conf = require('./conf');
 var karma = require('karma');
 
 var pathSrcHtml = [
-  path.join(conf.paths.src, '/**/*.html')
+  path.join(conf.paths.client, '/**/*.html')
 ];
 
 var pathSrcJs = [
-  path.join(conf.paths.src, '/**/!(*.spec).js')
+  path.join(conf.paths.client, '/**/!(*.spec).js')
 ];
 
 function runTests (singleRun, done) {
