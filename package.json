@@ -1,8 +1,15 @@
 {
   "name": "gifRecipes",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.0",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1"
+  },
   "scripts": {
+    "install": "bower install",
+    "start": "node src/server/server.js",
     "test": "gulp test"
   },
   "devDependencies": {
