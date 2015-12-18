@@ -12,6 +12,11 @@ var port = process.env.PORT || 9000;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.get('/api/ping', function(req, res, next) {
+  console.log(req.body);
+  res.send('pong');
+});
+
 if (process.env.NODE_ENV === 'development') {
   app.use(logger('dev'));
   app.use('/', express.static('./src/client/'));

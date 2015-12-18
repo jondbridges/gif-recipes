@@ -16,7 +16,8 @@ exports.paths = {
   server: 'src/server',
   dist: 'dist',
   tmp: '.tmp',
-  e2e: 'e2e'
+  e2e: 'e2e',
+  api: '/api'
 };
 
 /**
