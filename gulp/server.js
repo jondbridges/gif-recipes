@@ -3,16 +3,11 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
-
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 var proxyMiddleware = require('http-proxy-middleware');
-
 var util = require('util');
-
 var $ = require('gulp-load-plugins')();
-
 var port = process.env.PORT || 9000;
 
 function browserSyncInit(baseDir, browser) {
