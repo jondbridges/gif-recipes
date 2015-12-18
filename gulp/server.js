@@ -4,10 +4,13 @@ var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
 
+
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
+
+var $ = require('gulp-load-plugins')();
 
 var proxyMiddleware = require('http-proxy-middleware');
 
@@ -46,12 +49,39 @@ browserSync.use(browserSyncSpa({
   selector: '[ng-app]'// Only needed for angular apps
 }));
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('nodemon', function (cb) {
+  var started = false;
+
+  return $.nodemon({
+    script: path.join(conf.paths.server, '/server.js'),
+    env: {
+      'NODE_ENV': 'development',
+      'PORT': '9000'
+    }
+  }).on('start', function () {
+    if(!started) {
+      cb();
+      started = true;
+    }
+  }).on('restart', function () {
+    setTimeout(function () {
+      browserSync.reload({ stream: false });
+    }, 500);
+  });
+});
+
+gulp.task('serve', ['nodemon', 'watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.client]);
 });
 
 gulp.task('serve:dist', ['build'], function () {
-  browserSyncInit(conf.paths.dist);
+  return $.nodemon({
+    script: path.join(conf.paths.server, '/server.js'),
+    env: {
+      'NODE_ENV': 'build',
+      'PORT': '9000'
+    }
+  });
 });
 
 gulp.task('serve:e2e', ['inject'], function () {
@@ -61,3 +91,4 @@ gulp.task('serve:e2e', ['inject'], function () {
 gulp.task('serve:e2e-dist', ['build'], function () {
   browserSyncInit(conf.paths.dist, []);
 });
+

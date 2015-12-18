@@ -12,16 +12,11 @@ var port = process.env.PORT || 9000;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// TODO Remove server test url
-app.get('/ping', function(req, res) {
-  res.send('pong');
-});
-
 if (process.env.NODE_ENV === 'development') {
   app.use(logger('dev'));
   app.use('/', express.static('./src/client/'));
 }
-else if (process.env.NODE_ENV === 'production') {
+else if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'build') {
   app.use(compress());
   app.use('/', express.static('./dist/'));
 }
